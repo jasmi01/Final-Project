@@ -37,4 +37,3 @@ function createBusStopMap(busStops) {
   
     return map;
   }
-  
