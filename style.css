@@ -376,4 +376,7 @@
         transform: translate(24px, 0);
       }
     }
-    
+    #busStopMapContainer {
+        height: 400px;
+        width: 100%;
+      }

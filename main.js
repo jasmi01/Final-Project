@@ -6,33 +6,35 @@ async function fetchBusStopData() {
   
     return data; 
   }
-// Function to process bus stop data for the visualization
-function processBusStopData(data) {
- 
-    const processedBusStopData = data.map(stop => {
-      return {
-        id: stop.stop_id,
-        name: stop.title,
-        lat: stop.location.lat,
-        lon: stop.location.lon
-      };
-    });
   
-    return processedBusStopData; 
+  // Function to display bus stop data on the webpage
+  async function displayBusStopData() {
+    const busStopList = document.getElementById('busStopList'); 
+    const busStopData = await fetchBusStopData(); 
+  
+    // Loop through the bus stop data and append to the bus stop list element
+    for (const busStop of busStopData) {
+      const listItem = document.createElement('li');
+      listItem.textContent = busStop.name;
+      busStopList.appendItem(listItem);
+    }
   }
-// Function to create a Leaflet map with bus stop markers
-function createBusStopMap(busStops) {
-    // Create a new Leaflet map centered at a specific location
-    const map = L.map('map').setView([38.9879, -76.9426], 15);
   
-   
-    busStops.forEach(busStop => {
-      // Extract the bus stop location coordinates
-      const { lat, lon } = busStop.location;
+  // Function to create bus stop map using Leaflet.js
+  async function createBusStopMap() {
+    const busStopData = await fetchBusStopData(); 
+    const busStopMapContainer = document.getElementById('busStopMapContainer'); 
+
+    const map = L.map(busStopMapContainer).setView([38.9879, -76.9378], 15);
   
-      const marker = L.marker([lat, lon]).addTo(map)
-        .bindPopup(`<b>${busStop.name}</b><br>${busStop.stop_id}`);
-    });
-  
-    return map;
+    // Loop through the bus stop data and add markers to the map
+    for (const busStop of busStopData) {
+      const marker = L.marker([busStop.lat, busStop.lon]).addTo(map);
+      marker.bindPopup(`<b>${busStop.name}</b><br>${busStop.address}`);
+    }
   }
+  
+  // Call the functions t create the bus stop map when the page loads
+  window.addEventListener('load', displayBusStopData);
+  window.addEventListener('load', createBusStopMap);
+  
