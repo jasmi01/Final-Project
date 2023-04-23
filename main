@@ -6,7 +6,6 @@ async function fetchBusStopData() {
   
     return data; 
   }
-  
 // Function to process bus stop data for the visualization
 function processBusStopData(data) {
  
