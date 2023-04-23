@@ -1,1 +1,25 @@
-hello world
+
+<html>
+  <head>
+    <title>UMD Bus Stops</title>
+    <!-- Include necessary CSS and JavaScript files for Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+   <link rel="stylesheet" href="style.css">
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+   integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+   crossorigin=""></script>
+  
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <!-- HTML structure for displaying bus stop data -->
+    <div id="busStopDataContainer">
+      <ul id="busStopList"></ul>
+    </div>
+    <!-- HTML structure for displaying bus stop map -->
+    <div id="busStopMapContainer"></div>
+  </body>
+  </html>
