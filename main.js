@@ -14,7 +14,7 @@ async function fetchBusStopData() {
   
     // Loop through the bus stop data and append to the bus stop list element
     for (const busStop of busStopData) {
-      const listItem = document.createElement('li');
+      const listItem = document.createElement('i');
       listItem.textContent = busStop.name;
       busStopList.appendItem(listItem);
     }
@@ -26,7 +26,10 @@ async function fetchBusStopData() {
     const busStopMapContainer = document.getElementById('busStopMapContainer'); 
 
     const map = L.map(busStopMapContainer).setView([38.9879, -76.9378], 15);
-  
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
     // Loop through the bus stop data and add markers to the map
     for (const busStop of busStopData) {
       const marker = L.marker([busStop.lat, busStop.lon]).addTo(map);
