@@ -1,25 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INST377 Final Project</title>
 
-<html>
-  <head>
-    <title>UMD Bus Stops</title>
-    <!-- Include necessary CSS and JavaScript files for Leaflet.js -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
     crossorigin=""/>
-   <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="style.css">
+
     <!-- Make sure you put this AFTER Leaflet's CSS -->
-   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-   integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-   crossorigin=""></script>
-  
-    <script src="main.js"></script>
-  </head>
-  <body>
-    <header class="header">
-      <h1>UMD's Bus Stop Network</h1>
-  </header>
-    <div id="busStopDataContainer">
-    </div>
-    <div id="busStopMapContainer"></div>
-  </body>
-  </html>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <h1>UMD Bus Stop Map</h1>
+        </header>
+        <div class="container">
+            <div class="left_section box">
+                <form action= 'https://api.umd.io/v1/bus/stops' class="main_form">
+                <div>
+                    <label for="resto">Filter By Bus Stop Name</label>
+                    <input type="text" id="resto" name="resto"/>
+                    <button onclick="filterList()">Filter</button>
+                </div>
+                <ol id="stop_list">
+                </ol>
+                <button type="button" id="generate" class="hidden">Generate List</button>
+                </form>
+            </div>
+            <div class="right_section box">
+                <h2>UMD Bus Stops</h2>
+                <div id="map" class="box"></div>
+                <div id='data_load_animation'><div></div><div></div><div></div><div></div></div>
+                </div>
+            </div>
+        </div>
+  <script src="./script.js"></script>
+</body>
+</html>
