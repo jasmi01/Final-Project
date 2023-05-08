@@ -107,7 +107,6 @@ function markerPlace(array, map) {
   });
 }
 
-
 mainEvent();
 // Save data to localStorage
 localStorage.setItem('busStops', JSON.stringify(data));
