@@ -116,7 +116,7 @@ form {
 }
 
 #map {
-  height: 490px;
+  height: 700px;
   width: 40%;
 }
 /*
@@ -158,6 +158,15 @@ form {
   and the "wrapper" block displaying as a flex column with a "vertical height" (vh) of 100.
   That serves to cram the footer to the bottom of the page.
 */
+
+.intro-box {
+  background-color: rgb(165, 199, 176);
+  border: 2px dashed rgb(207, 229, 167);
+  border-radius: 5px;
+  padding: 1.5rem;
+  margin: 1rem;
+}
+
 
 .footer {
   border: 2px dashed;

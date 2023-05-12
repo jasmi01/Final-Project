@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bus Stop Map</title>
-
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -16,12 +15,15 @@
     <style>
     </style>
   </head>
-
   <body>
     <div class="wrapper">
     <header class="header">
         <h1>UMD Bus Stop Map</h1>
     </header>
+    <div class="intro-box" id="intro-box">
+      <h5>Welcome to the UMD Bus Stop Map! Use the filter and generate list buttons on the left to find bus stops near you, or enter your starting and ending bus stops on the right to calculate the distance between them. Happy exploring!
+      </h5>
+    </div>
     <div class="container">
         <div class="left_section box">
         <label for="filter-input">Filter by stop title:</label>
@@ -31,7 +33,15 @@
         <ol id="stop-list">
         </ol>
     </div>
-    <div class="right_section box" id="map" ></div>
+    <div class="box" id="map" ></div>
+    <div class="right_section box">
+      <label for="start-stop-input">Starting bus stop:</label>
+<input id="start-stop-input" type="text">
+<label for="end-stop-input">Ending bus stop:</label>
+<input id="end-stop-input" type="text">
+<button id="calculate-distance-button">Calculate distance</button>
+<p id="distance-display"></p>
+    </div>
     </div>
     </div>
     <script

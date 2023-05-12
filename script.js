@@ -51,7 +51,6 @@ const stopData = [ {'stop_id': 'regdrgar_d', 'title': 'Regents Drive Garage', 'l
 {'stop_id': 'memo_out', 'title': 'Memorial Chapel (Outbound)', 'lat': 38.9848206, 'long': -76.94015},
 {'stop_id': 'mont_out', 'title': 'Montgomery Hall (Outbound)', 'lat': 38.9824312, 'long': -76.9391529},
 {'stop_id': 'baltritc_s', 'title': 'Ritchie Coliseum', 'lat': 38.9852774, 'long': -76.9370967},
-{'stop_id': 'mcirc_s', 'title': 'Campus Dr at M Circle', 'lat': 38.9877034, 'long': -76.9394934},
 {'stop_id': 'hoff', 'title': 'Hoff Theater', 'lat': 38.9880692, 'long': -76.94539},
 {'stop_id': 'uniofiel', 'title': 'Union Ln and Fieldhouse Dr', 'lat': 38.9886932, 'long': -76.9453067},
 {'stop_id': 'biofield', 'title': 'BioSciences Research Building', 'lat': 38.9892576, 'long': -76.9421089},
@@ -124,6 +123,7 @@ function filterStops() {
 
 const markers = L.layerGroup().addTo(map);
 
+//Add the generate list button
 function generateList() {
   const stopTitles = stopData.map(stop => stop.title);
   const stopList = document.getElementById("stop-list");
@@ -134,10 +134,12 @@ function generateList() {
   });
 }
 
+//event listener for generate list button
 document.getElementById("generate-list-button").addEventListener("click", () => {
   generateList();
 });
 
+//event listener for filter button
 document.getElementById("filter-button").addEventListener("click", () => {
   const filteredStops = filterStops();
   markers.clearLayers();
@@ -150,6 +152,7 @@ document.getElementById("filter-button").addEventListener("click", () => {
       map.setView([firstStop.lat, firstStop.long], 16);
   }
 });
+
 function generateList() {
   const filterInput = document.getElementById("filter-input");
   const filterValue = filterInput.value.trim().toLowerCase();
@@ -162,3 +165,37 @@ function generateList() {
       stopList.appendChild(li);
   });
 }
+
+// Function to calculate the distance between two points using Haversine formula 
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371e3; // Earth's radius in meters
+  const phi1 = lat1 * Math.PI / 180;
+  const phi2 = lat2 * Math.PI / 180;
+  const deltaPhi = (lat2 - lat1) * Math.PI / 180;
+  const deltaLambda = (lon2 - lon1) * Math.PI / 180;
+
+  const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+          Math.cos(phi1) * Math.cos(phi2) *
+          Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  const d = R * c; // Distance in meters
+  return d;
+}
+
+// Event listener for the calculate distance button
+document.getElementById("calculate-distance-button").addEventListener("click", () => {
+  const startStopInput = document.getElementById("start-stop-input");
+  const endStopInput = document.getElementById("end-stop-input");
+  const startStop = stopData.filter(stop => stop.title.toLowerCase() === startStopInput.value.trim().toLowerCase());
+  const endStop = stopData.filter(stop => stop.title.toLowerCase() === endStopInput.value.trim().toLowerCase());
+
+  if (startStop.length > 0 && endStop.length > 0) {
+    const distance = calculateDistance(startStop[0].lat, startStop[0].long, endStop[0].lat, endStop[0].long);
+    const distanceDisplay = document.getElementById("distance-display");
+    distanceDisplay.innerText = `Distance between ${startStopInput.value} and ${endStopInput.value}: ${distance.toFixed(2)} meters`;
+  } else {
+    const distanceDisplay = document.getElementById("distance-display");
+    distanceDisplay.innerText = "Invalid bus stop(s). Please check your input.";
+  }
+});
